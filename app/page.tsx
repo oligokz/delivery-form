@@ -97,7 +97,7 @@ export default function DeliveryForm() {
           <label className="block text-xs font-bold text-gray-500 uppercase mb-1 ml-1">Description of Item(s)</label>
           <textarea 
             name="description" 
-            placeholder="What is inside the delivery?" 
+            placeholder="Brief Description Of Items" 
             className="w-full p-4 border border-gray-200 rounded-xl h-28 outline-none focus:ring-2 focus:ring-blue-500" 
           />
         </div>
@@ -129,7 +129,7 @@ export default function DeliveryForm() {
           <input 
             type="text" 
             name="receivedBy" 
-            placeholder="Your Name" 
+            placeholder="Storeman Name" 
             className="w-full p-4 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" 
             required 
           />
