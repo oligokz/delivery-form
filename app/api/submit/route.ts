@@ -67,10 +67,10 @@ export async function POST(req: Request) {
     // --- STOP HERE AND EDIT THESE TWO EMAILS ---
     
     // A: Who is SENDING the email? (Must be an account in your M365 tenant)
-    const senderEmail = "warehouse@yourcompany.com"; 
+    const senderEmail = "no-reply@trisome.com.sg"; 
     
     // B: Who is RECEIVING the email?
-    const receiverEmail = "users-group@yourcompany.com";
+    const receiverEmail = "bernard.lim@outlook.sg";
 
     // --------------------------------------------
 
