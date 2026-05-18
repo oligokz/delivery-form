@@ -38,7 +38,7 @@ export default function DeliveryForm() {
         <p className="text-gray-600 mb-8">The delivery details and photos have been emailed to the team.</p>
         <button 
           onClick={() => window.location.reload()}
-          className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition-all"
+          className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg"
         >
           Submit Another Delivery
         </button>
@@ -54,38 +54,65 @@ export default function DeliveryForm() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-5">
+        
+        {/* Date Picker - Whole field clickable */}
         <div>
           <label className="block text-xs font-bold text-gray-500 uppercase mb-1 ml-1">Submission Date & Time</label>
-          <div className="relative">
-             <input 
-              type="datetime-local" 
-              name="submissionDate" 
-              defaultValue={currentDateTime}
-              className="w-full p-3 border border-gray-200 rounded-xl bg-gray-50 text-gray-700 focus:ring-2 focus:ring-blue-500 outline-none appearance-none block" 
+          <input 
+            type="datetime-local" 
+            name="submissionDate" 
+            defaultValue={currentDateTime}
+            className="w-full p-4 border border-gray-200 rounded-xl bg-gray-50 text-gray-700 focus:ring-2 focus:ring-blue-500 outline-none cursor-pointer block" 
+            required 
+            onClick={(e) => (e.target as any).showPicker?.()} 
+          />
+        </div>
+
+        {/* Company Fields - Stacked on mobile, side-by-side on desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-xs font-bold text-gray-500 uppercase mb-1 ml-1">Company Name</label>
+            <input 
+              type="text"
+              name="company" 
+              placeholder="Enter Company" 
+              className="w-full p-4 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" 
               required 
-              onClick={(e) => (e.target as any).showPicker?.()} 
+            />
+          </div>
+          
+          <div>
+            <label className="block text-xs font-bold text-gray-500 uppercase mb-1 ml-1">Delivering Company</label>
+            <input 
+              type="text"
+              name="deliveringCompany" 
+              placeholder="e.g. FedEx, DHL" 
+              className="w-full p-4 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" 
+              required 
             />
           </div>
         </div>
 
-        {/* Stacked on mobile, side-by-side on tablet/desktop */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input list="companies" name="company" placeholder="Company Name" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
-          <datalist id="companies">
-            <option value="Frequent Supplier A" /><option value="Local Parts Inc." />
-          </datalist>
-          
-          <input list="deliveringCompanies" name="deliveringCompany" placeholder="Delivering Company" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
-          <datalist id="deliveringCompanies">
-            <option value="FedEx" /><option value="UPS" /><option value="DHL" /><option value="Lalamove" />
-          </datalist>
+        <div>
+          <label className="block text-xs font-bold text-gray-500 uppercase mb-1 ml-1">Description of Item(s)</label>
+          <textarea 
+            name="description" 
+            placeholder="What is inside the delivery?" 
+            className="w-full p-4 border border-gray-200 rounded-xl h-28 outline-none focus:ring-2 focus:ring-blue-500" 
+          />
         </div>
 
-        <textarea name="description" placeholder="Description of Item(s)" className="w-full p-3 border border-gray-200 rounded-xl h-28 outline-none focus:ring-2 focus:ring-blue-500" />
+        <div>
+          <label className="block text-xs font-bold text-gray-500 uppercase mb-1 ml-1">PO / Job / Attention To</label>
+          <input 
+            type="text" 
+            name="poNumber" 
+            placeholder="Enter PO Number" 
+            className="w-full p-4 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" 
+          />
+        </div>
 
-        <input type="text" name="poNumber" placeholder="PO / Job Number / Attention To" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" />
-
-        <div className="space-y-4 border border-gray-100 py-5 px-4 rounded-2xl bg-slate-50">
+        <div className="space-y-4 border border-gray-100 py-6 px-4 rounded-2xl bg-slate-50">
           <div>
             <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Delivery Orders (Photo)</label>
             <input type="file" name="orderPhoto" accept="image/*" capture="environment" className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
@@ -97,12 +124,21 @@ export default function DeliveryForm() {
           </div>
         </div>
 
-        <input type="text" name="receivedBy" placeholder="Received By (Staff Name)" className="w-full p-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
+        <div>
+          <label className="block text-xs font-bold text-gray-500 uppercase mb-1 ml-1">Received By</label>
+          <input 
+            type="text" 
+            name="receivedBy" 
+            placeholder="Your Name" 
+            className="w-full p-4 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" 
+            required 
+          />
+        </div>
 
         <button 
           type="submit" 
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 shadow-lg shadow-blue-200 disabled:bg-gray-400 transition-all text-lg"
+          className="w-full bg-blue-600 text-white py-5 rounded-xl font-bold hover:bg-blue-700 shadow-lg shadow-blue-200 disabled:bg-gray-400 transition-all text-xl mt-4"
         >
           {loading ? 'Processing Upload...' : 'Submit Delivery'}
         </button>
