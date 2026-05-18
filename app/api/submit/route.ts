@@ -57,7 +57,19 @@ export async function POST(req: Request) {
 
     // --- CONFIGURATION ---
     const senderEmail = "no-reply@trisome.com.sg"; 
-    const receiverEmail = "bernard.lim@outlook.sg";
+    
+    // ADD MORE EMAILS TO THIS LIST BELOW
+    const receiverEmails = [
+      "bernard.lim@outlook.sg",
+      "daiseylim@trisome.com.sg",
+      "zurieltan@trisome.com.sg",
+      "cktay@trisome.com.sg",
+      "benho@trisome.com.sg",
+      "christan@trisome.com.sg",
+      "judylow@trisome.com.sg",
+      "rodolf@trisome.com.sg",// Add more emails here, separated by commas
+    ];
+
     const logoUrl = "https://delivery.trisome.com.sg/logo.png";
     // ---------------------
 
@@ -76,7 +88,7 @@ export async function POST(req: Request) {
                 <div style="padding: 30px;">
                   <h2 style="color: #333; margin-top: 0;">Delivery Notification</h2>
                   <table style="width: 100%; font-size: 14px;">
-                    <tr><td style="padding: 8px 0; color: #888;"><b>PO / JOB:</b></td><td>${po}</td></tr>
+                    <tr><td style="padding: 8px 0; color: #888; width: 40%;"><b>PO / JOB:</b></td><td>${po}</td></tr>
                     <tr><td style="padding: 8px 0; color: #888;"><b>COMPANY:</b></td><td>${company}</td></tr>
                     <tr><td style="padding: 8px 0; color: #888;"><b>LOGISTICS:</b></td><td>${deliveringCompany}</td></tr>
                     <tr><td style="padding: 8px 0; color: #888;"><b>DESCRIPTION:</b></td><td>${description}</td></tr>
@@ -91,7 +103,10 @@ export async function POST(req: Request) {
             </div>
           `
         },
-        toRecipients: [{ emailAddress: { address: receiverEmail } }],
+        // This line converts your list of emails into the format Microsoft Graph needs
+        toRecipients: receiverEmails.map(email => ({
+          emailAddress: { address: email.trim() }
+        })),
         attachments: attachments
       },
       saveToSentItems: "false"
